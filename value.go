@@ -863,7 +863,7 @@ func (lf *logFile) open(path string, flags uint32) error {
 	}
 	lf.dataKey = dk
 	lf.baseIV = buf[8:]
-	y.AssertTrue(len(lf.baseIV) == 12)
+	y.AssertTruef(len(lf.baseIV) == 12, "len(lf.baseIV): %d", len(lf.baseIV))
 	return nil
 }
 
@@ -901,7 +901,7 @@ func (lf *logFile) bootstrap() error {
 	}
 	// Initialize base IV.
 	lf.baseIV = buf[8:]
-	y.AssertTrue(len(lf.baseIV) == 12)
+	y.AssertTruef(len(lf.baseIV) == 12, "len(lf.baseIV): %d", len(lf.baseIV))
 	// write the key id and base IV to the file.
 	_, err = lf.fd.Write(buf)
 	return err

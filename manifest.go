@@ -142,7 +142,7 @@ func helpOpenOrCreateManifestFile(dir string, readOnly bool, deletionsThreshold 
 		if err != nil {
 			return nil, Manifest{}, err
 		}
-		y.AssertTrue(netCreations == 0)
+		y.AssertTruef(netCreations == 0, "netCreations: %d", netCreations)
 		mf := &manifestFile{
 			fp:                        fp,
 			directory:                 dir,

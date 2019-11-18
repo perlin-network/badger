@@ -159,7 +159,7 @@ func newLevelHandler(db *DB, level int) *levelHandler {
 
 // tryAddLevel0Table returns true if ok and no stalling.
 func (s *levelHandler) tryAddLevel0Table(t *table.Table) bool {
-	y.AssertTrue(s.level == 0)
+	y.AssertTruef(s.level == 0, "s.level: %d", s.level)
 	// Need lock as we may be deleting the first table during a level 0 compaction.
 	s.Lock()
 	defer s.Unlock()

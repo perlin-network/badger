@@ -299,7 +299,7 @@ func (w *sortedWriter) handleRequests() {
 		for i, e := range req.Entries {
 			vptr := req.Ptrs[i]
 			if !vptr.IsZero() {
-				y.AssertTrue(w.head.Less(vptr))
+				y.AssertTruef(w.head.Less(vptr), "w.head: %+v vptr: %+v", w.head, vptr)
 				w.head = vptr
 			}
 

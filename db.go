@@ -151,8 +151,8 @@ func (db *DB) replayFunction() func(Entry, valuePointer) error {
 			if err != nil {
 				return errors.Wrapf(err, "Unable to parse txn fin: %q", e.Value)
 			}
-			y.AssertTrue(lastCommit == txnTs)
-			y.AssertTrue(len(txn) > 0)
+			y.AssertTruef(lastCommit == txnTs, "lastCommit: %d txnTs: %d", lastCommit, txnTs)
+			y.AssertTruef(len(txn) > 0, "len(txn): %d", len(txn))
 			// Got the end of txn. Now we can store them.
 			for _, t := range txn {
 				toLSM(t.nk, t.v)
@@ -179,8 +179,8 @@ func (db *DB) replayFunction() func(Entry, valuePointer) error {
 			toLSM(nk, v)
 
 			// We shouldn't get this entry in the middle of a transaction.
-			y.AssertTrue(lastCommit == 0)
-			y.AssertTrue(len(txn) == 0)
+			y.AssertTruef(lastCommit == 0, "lastCommit: %d", lastCommit)
+			y.AssertTruef(len(txn) == 0, "len(txn): %d", len(txn))
 		}
 		return nil
 	}
@@ -611,7 +611,7 @@ func (db *DB) updateHead(ptrs []valuePointer) {
 
 	db.Lock()
 	defer db.Unlock()
-	y.AssertTrue(!ptr.Less(db.vhead))
+	y.AssertTruef(!ptr.Less(db.vhead), "ptr: %+v db.vhead: %+v", ptr, db.vhead)
 	db.vhead = ptr
 }
 
