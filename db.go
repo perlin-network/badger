@@ -21,6 +21,7 @@ import (
 	"context"
 	"encoding/binary"
 	"expvar"
+	"fmt"
 	"math"
 	"os"
 	"path/filepath"
@@ -401,7 +402,7 @@ func (db *DB) Close() error {
 
 func (db *DB) close() (err error) {
 	db.elog.Printf("Closing database")
-
+	fmt.Println("Closing database")
 	atomic.StoreInt32(&db.blockWrites, 1)
 
 	if !db.opt.InMemory {
